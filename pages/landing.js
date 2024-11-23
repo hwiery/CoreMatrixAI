@@ -113,7 +113,7 @@ const LandingPage = () => {
           </p>
           <Button 
             onClick={() => router.push('/contact')}
-            className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-medium rounded-lg transform hover:scale-105 transition-all duration-300"
+            className="bg-white text-blue-600 hover:bg-blue-700 px-8 py-4 text-lg font-medium rounded-lg transform hover:scale-105 transition-all duration-300"
           >
             {t('final_cta.button')}
           </Button>

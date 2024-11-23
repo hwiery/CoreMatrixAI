@@ -5,8 +5,8 @@ export const Button = ({ children, className, variant = 'default', ...props }) =
   
   const variants = {
     default: 'bg-gray-600 hover:bg-gray-700 text-white focus:ring-gray-500',
-    primary: 'bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500',
-    secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-900 focus:ring-gray-500',
+    primary: 'bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500'
+    
   };
 
   return (

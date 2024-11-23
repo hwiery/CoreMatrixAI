@@ -1,24 +1,66 @@
 {
-    "landing": {
-        "join_as_developer": "Join as Developer",
-        "accelerate_business": "Accelerate Your Business",
-        "with_proven_talent": "With Proven Talent!",
-        "why_choose_us": "Why Choose Us?",
-        "hero": "Starting with college internships, we offer opportunities to get paid to gain hands-on experience. \n\nWe can provide different forms of resources to businesses, which can save them a lot of money.",
-        "transform_your_ai_vision": "Transform Your AI Vision",
-        "lead_your_ai_project": "Lead your AI project with the best AI data labeling service.",
-        "efficient_cost_management": "Efficient Cost Management",
-        "efficient_cost_management_description": "Run cost-effective projects with a superior Indian developer workforce.",
-        "exceptional_productivity": "Exceptional Productivity",
-        "exceptional_productivity_description": "More than 10 developers have been deployed to speed up projects more than three times.",
-        "paid_internship_offers": "Paid Internship Offers",
-        "paid_internship_offers_description": "Provides paid hands-on experience to college student developers and creates real value for both businesses and developers.",
-        "customized_team_expansion": "Customized Team Expansion",
-        "customized_team_expansion_description": "Build a customized team as needed and connect developers that fit your goals.",
-        "industries": "Industries",
-        "accuracy": "Accuracy",
-        "cost_reduction": "Cost Reduction",
-        "support": "Support"
+    "hero": {
+        "title": "Is there a problem with the schedule due to a lack of development manpower",
+        "subtitle": "We provide talented developers at a reasonable cost to solve both the labor shortage and budget burden of the enterprise",
+        "cta_primary": "Get Free Consultation"
+      },
+    
+    "benefits": {
+        "title": "Core Benefits",
+        "items": {
+          "cost": {
+            "title": "Efficient Cost Management",
+            "description": "Run cost-effective projects with a superior Indian developer workforce."
+          },
+          "productivity": {
+            "title": "Exceptional Productivity",
+            "description": "More than 10 developers have been deployed to speed up projects more than three times."
+          },
+          "internship": {
+            "title": "Paid Internship Offers",
+            "description": "Provides paid hands-on experience to college student developers and creates real value for both businesses and developers."
+          },
+          "team": {
+            "title": "Customized Team Expansion",
+            "description": "Build a customized team as needed and connect developers that fit your goals."
+          }
+        }
+      },
+    
+    "success_stories": {
+        "title": "Success Stories",
+        "stories": {
+          "story1": {
+            "quote": "Starting with college internships, we offer opportunities to get paid to gain hands-on experience.",
+            "client": "Tech Company A"
+          },
+          "story2": {
+            "quote": "We can provide different forms of resources to businesses, which can save them a lot of money.",
+            "client": "Enterprise B"
+          }
+        }
+      },
+    
+    "developer_cta": {
+        "title": "Join as Developer",
+        "subtitle": "Transform Your AI Vision",
+        "description": "Lead your AI project with the best AI data labeling service.",
+        "button": "Join Now"
+      },
+    
+      "industries": {
+        "title": "Industries",
+        "metrics": {
+          "accuracy": "Accuracy",
+          "cost_reduction": "Cost Reduction",
+          "support": "Support"
+        }
+      },
+    
+      "final_cta": {
+        "title": "Accelerate Your Business",
+        "subtitle": "With Proven Talent!",
+        "button": "Get Free Consultation"
     },
     
     "contact": {
@@ -120,5 +162,62 @@
         },
         "our_commitment_title": "Our Commitment",
         "our_commitment_description": "We are not just a service provider; we are your partner in success. Our commitment lies in ensuring businesses thrive with the right talent while developers achieve their dreams. Together, we build solutions that matter."
+    },
+    "faq": {
+        "title": "Frequently Asked Questions",
+        "questions": {
+          "consultation": {
+            "question": "How does the free consultation process work?",
+            "steps": {
+              "step1": {
+                "title": "1. Understanding Requirements",
+                "content": "We assess your project goals, technical requirements, and team size."
+              },
+              "step2": {
+                "title": "2. Custom Matching Proposal",
+                "content": "We recommend developers or teams that match your needs."
+              },
+              "note": {
+                "content": "* Consultation takes about 30 minutes and can be conducted online or in person."
+              }
+            }
+          },
+          "matching_speed": {
+            "question": "How quickly can you match developers?",
+            "answers": [
+              "We match optimal developers within 7 days on average.",
+              "For urgent projects, we can match available developers within 48 hours.",
+              "Developers join the project after final client approval of the match."
+            ]
+          },
+          "pricing": {
+            "question": "How is developer pricing structured?",
+            "answers": [
+              "Internship developers start from $500 per month.",
+              "Experienced developer rates are based on skill level and project scope.",
+              "Team packages include management personnel for team hiring."
+            ]
+          }
+        }
+    },
+    
+    "developer_cta": {
+        "headline": "Seize Your Opportunity to Grow with Global Companies!",
+        "subtitle": "Build your career with CoreMatrix and explore your potential on a bigger stage.",
+        "button": "Join as Developer",
+        "benefits": {
+      "global": {
+        "title": "Global Projects",
+        "description": "Opportunities to participate in innovative projects across various countries"
+      },
+      "compensation": {
+        "title": "Competitive Compensation",
+        "description": "Fair compensation and performance bonuses based on your skills"
+      },
+      "growth": {
+        "title": "Growth Support",
+        "description": "Technical training and mentoring programs provided"
+      }
+        }
     }
 }
