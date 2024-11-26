@@ -1,0 +1,1 @@
+{"c":["pages/_app","webpack"],"r":["translations_join_developer_en_json","translations_join_developer_ko_json"],"m":["./translations lazy recursive ^\\.\\/join_developer_.*\\.json$","./translations/join_developer_en.json","./translations/join_developer_ko.json"]}

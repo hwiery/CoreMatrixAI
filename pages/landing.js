@@ -1,207 +1,185 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button } from '../components/ui/button';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-
-import { BiBrain } from 'react-icons/bi';
-import { FaChartLine, FaUsers, FaCoins, FaGlobe } from 'react-icons/fa';
-import Link from 'next/link'; // Link 컴포넌트 import 추가
 import { useLanguage } from '../contexts/LanguageContext';
-
-
-
+import { BiBrain } from 'react-icons/bi';
+import { FaChartLine, FaUsers, FaCoins } from 'react-icons/fa';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import FAQ from '../components/FAQ';
 
 const LandingPage = () => {
-  
-  const { t, toggleLanguage, language } = useLanguage(); // useLanguage 훅을 사용하여 t 함수와 toggleLanguage, language 가져오기
+  const [heroRef, isHeroVisible] = useIntersectionObserver({ threshold: 0.1 });
+  const [benefitsRef, isBenefitsVisible] = useIntersectionObserver({ threshold: 0.1 });
+  const [storiesRef, isStoriesVisible] = useIntersectionObserver({ threshold: 0.1 });
+  const [ctaRef, isCtaVisible] = useIntersectionObserver({ threshold: 0.1 });
+  const [faqRef, isFaqVisible] = useIntersectionObserver({ threshold: 0.1 });
+  const [finalCtaRef, isFinalCtaVisible] = useIntersectionObserver({ threshold: 0.1 });
+  const { t, language } = useLanguage();
   const router = useRouter();
 
+  useEffect(() => {
+    // 디버깅을 위한 로그
+    console.log('Current language:', language);
+    console.log('Translation test:', t('landing.hero.title'));
+  }, [language]);
+
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* 상단 배경 이미지 */}
-      <div className="bg-[url('/images/mountain-sunset.jpg')] bg-cover bg-center h-1/2">
-        <div className="fixed top-2 left-0 right-0 bg-black bg-opacity-70 backdrop-blur-md p-4 rounded-lg z-50 mx-4 border-2 border-white">
-          <div className="flex justify-between items-center max-w-7xl mx-auto">
-            <Image src="/images/Logo3.svg" alt="Logo" width={150} height={50} />
-            <div className="flex items-center space-x-4">
-              <Link href="/join-developer">
-                <Button variant="primary" className="text-white text-sm sm:text-base px-2 sm:px-4 py-2">
-                  {t('landing.join_as_developer')}
-                </Button>
-              </Link>
-              <Button onClick={toggleLanguage} className="flex items-center bg-white text-black text-sm sm:text-base px-2">
-                <FaGlobe className="mr-2" />
-                {language === 'en' ? 'En' : 'Ko'}
+    <div className={`min-h-screen bg-black text-white ${language === 'ko' ? 'korean' : 'english'}`}>
+      {/* Hero 섹션 */}
+      <section 
+        ref={heroRef} 
+        className={`relative min-h-screen flex items-center justify-center pt-12 overflow-hidden opacity-0 
+          ${isHeroVisible ? 'animate-fade-in-up' : ''}`}
+      >
+        <div className="absolute inset-0 mt-80">
+          <Image 
+            src="/images/mountain-sunset.jpg" 
+            alt="Mountain Landscape" 
+            layout="fill" 
+            objectFit="cover" 
+            objectPosition="center 15%"
+            quality={90}
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"
+            style={{ 
+              background: 'linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 25%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0.9) 100%)' 
+            }} 
+          />
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 mt-0">
+          <div className="space-y-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+              {t('landing.hero.title')}
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed max-w-3xl mx-auto">
+              {t('landing.hero.subtitle')}
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
+              <Button
+                onClick={() => router.push('/contact')}
+                variant="primary"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-medium rounded-lg transform hover:scale-105 transition-all duration-300 sm:w-auto"
+              >
+                {t('landing.hero.cta_primary')}
               </Button>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Hero 섹션 */}
-        <section className="relative pt-40 pb-20">
-          <div className="max-w-7xl mx-auto text-center relative z-10">
-            <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">
-              {t('landing.accelerate_business')} <br />
-              {t('landing.with_proven_talent')}
-            </h1>
-
-            <Button
-              variant="primary"
-              className="mt-20 w-auto sm:w-auto bg-blue-600 hover:bg-blue-700 backdrop-blur-sm bg-opacity-90"
-              onClick={() => router.push('/join-developer')}
-            >
-              ▶▷{t('landing.join_as_developer')}◁◀
-            </Button>
-          </div>
-        </section>
-      </div>
-
-      {/* 시장 성장과 필요성 섹션 */}
-      <div className="bg-black py-20">
-        <section className="px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <p className="text-center text-white text-lg mb-12 whitespace-pre-line">{t('landing.hero')}</p>
-            
-            <div className="grid grid-cols-1 gap-8">
-              {/* Cost Reduction 섹션 */}
-              <div className="text-center p-6 bg-gray-800 rounded-lg border border-blue-500">
-                <div className="text-6xl font-bold text-blue-500 mb-2">82.5%</div>
-                <p className="text-xl text-gray-300 font-semibold"> {t('landing.cost_reduction')}</p>
+      {/* Benefits 섹션 */}
+      <section 
+        ref={benefitsRef}
+        className={`py-24 bg-gradient-to-b from-black to-gray-900 opacity-0 
+          ${isBenefitsVisible ? 'animate-fade-in-up' : ''}`}
+      >
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-16">{t('landing.benefits.title')}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {Object.entries(t('landing.benefits.items')).map(([key, item], index) => (
+              <div 
+                key={key} 
+                className={`bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 transform hover:scale-105 transition-duration-300 opacity-0
+                  ${isBenefitsVisible ? 'animate-fade-in-up animate-delay-' + (index + 1) + '00' : ''}`}
+              >
+                {key === 'cost' && <FaCoins className="w-12 h-12 text-blue-500 mb-4" />}
+                {key === 'productivity' && <FaChartLine className="w-12 h-12 text-blue-500 mb-4" />}
+                {key === 'internship' && <BiBrain className="w-12 h-12 text-blue-500 mb-4" />}
+                {key === 'team' && <FaUsers className="w-12 h-12 text-emerald-500 mb-4" />}
+                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                <p className="text-gray-300">{item.description}</p>
               </div>
-
-              {/* Accuracy, Industries, Support 섹션 */}
-              <div className="grid grid-cols-3 sm:grid-cols-3 gap-8">
-                <div className="text-center p-6 bg-gray-800 rounded-lg border border-blue-500">
-                  <div className="text-4xl font-bold text-blue-500 mb-2">95%</div>
-                  <p className="text-lg text-gray-400">{t('landing.accuracy')}</p>
-                </div>
-                
-                <div className="text-center p-6 bg-gray-800 rounded-lg border border-blue-500">
-                  <div className="text-4xl font-bold text-blue-500 mb-2">40+</div>
-                  <p className="text-lg text-gray-400">{t('landing.industries')}</p>
-                </div>
-                
-                <div className="text-center p-6 bg-gray-800 rounded-lg border border-blue-500">
-                  <div className="text-4xl font-bold text-blue-500 mb-2">24h</div>
-                  <p className="text-lg text-gray-400">{t('landing.support')}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      {/* Why Choose Us? 섹션 */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black to-gray-900">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">{t('landing.why_choose_us')}</h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-            <div className="text-center p-6 bg-gray-800/50 rounded-lg backdrop-blur-sm">
-              <FaCoins className="w-12 h-12 mx-auto mb-4 text-blue-500" />
-              <h3 className="text-lg font-medium">{t('landing.landing.efficient_cost_management')}</h3>
-              <p className="mt-2 text-gray-400">{t('landing.landing.efficient_cost_management_description')}</p>
-            </div>
-            <div className="text-center p-6 bg-gray-800/50 rounded-lg backdrop-blur-sm">
-              <FaChartLine className="w-12 h-12 mx-auto mb-4 text-blue-500" />
-              <h3 className="text-lg font-medium">{t('landing.exceptional_productivity')}</h3>
-              <p className="mt-2 text-gray-400">{t('landing.exceptional_productivity_description')}</p>
-            </div>
-            <div className="text-center p-6 bg-gray-800/50 rounded-lg backdrop-blur-sm">
-              <BiBrain className="w-12 h-12 mx-auto mb-4 text-blue-500" />
-              <h3 className="text-lg font-medium">{t('landing.paid_internship_offers')}</h3>
-              <p className="mt-2 text-gray-400">{t('landing.paid_internship_offers_description')}</p>
-            </div>
-            <div className="text-center p-6 bg-gray-800/50 rounded-lg backdrop-blur-sm">
-              <FaUsers className="w-12 h-12 mx-auto mb-4 text-blue-500" />
-              <h3 className="text-lg font-medium">{t('landing.customized_team_expansion')}</h3>
-              <p className="mt-2 text-gray-400">{t('landing.customized_team_expansion_description')}</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA 섹션 */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-blue-600">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4 text-white">{t('landing.transform_your_ai_vision')}</h2>
-          <p className="text-xl mb-8 text-white">
-            {t('landing.lead_your_ai_project')}
+      {/* FAQ 섹션 */}
+      <section 
+        ref={faqRef}
+        className={`py-24 bg-gray-900 opacity-0 
+          ${isFaqVisible ? 'animate-fade-in-up' : ''}`}
+      >
+        <div className="max-w-6xl mx-auto px-4">
+          <FAQ />
+        </div>
+      </section>
+
+      {/* Final CTA 섹션 */}
+      <section 
+        ref={finalCtaRef}
+        className={`bg-gradient-to-r from-blue-500 to-emerald-700 py-20 opacity-0 
+          ${isFinalCtaVisible ? 'animate-fade-in-up' : ''}`}
+      >
+        <div className="max-w-4xl mx-auto text-center px-4">
+          <h2 className="text-3xl font-bold mb-6 text-white">
+            {t('landing.final_cta.title')}
+          </h2>
+          <p className="text-xl mb-10 text-white/90">
+            {t('landing.final_cta.subtitle')}
           </p>
-          <Button
-            onClick={() => router.push('/join-developer')}
-            variant="secondary"
-            className="bg-white text-blue-600 hover:bg-gray-100 font-semibold px-8 py-3"
+          <Button 
+            
+            onClick={() => router.push('/contact')}
+            className="bg-black text-white hover:bg-blue-700 px-8 py-4 text-lg font-medium rounded-lg transform hover:scale-105 transition-all duration-300"
+            variant="primary"
           >
-            {t('landing.join_as_developer')}
+            {t('landing.final_cta.button')}
           </Button>
         </div>
       </section>
 
-      {/* Footer 섹션 */}
-      <footer className="bg-gray-900 text-gray-400">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white">Company</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/about" className="hover:text-white transition-colors">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/careers" className="hover:text-white transition-colors">
-                    Careers
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white">Legal</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/terms" className="hover:text-white transition-colors">
-                    Terms of Service
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="hover:text-white transition-colors">
-                    Privacy Policy
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white">Support</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/contact" className="hover:text-white transition-colors">
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/faq" className="hover:text-white transition-colors">
-                    FAQ
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white">Connect</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="mailto:contact@corematrix.ai" className="hover:text-white transition-colors">
-                    contact@corematrix.ai
-                  </a>
-                </li>
-              </ul>
-            </div>
+            {/* Developer CTA 섹션 */}
+            <section 
+        ref={ctaRef}
+        className={`relative bg-gradient-to-br from-emerald-900 to-teal-900 py-32 overflow-hidden opacity-0 
+          ${isCtaVisible ? 'animate-fade-in-up' : ''}`}
+      >
+        <div className="absolute inset-0 opacity-70">
+          <Image 
+            src="/images/india_city.jpg" 
+            alt="Indian City"
+            layout="fill"
+            objectFit="cover"
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              {t('landing.developer_cta.headline')}
+            </h2>
+            <p className="text-xl text-emerald-100 mb-12">
+              {t('landing.developer_cta.subtitle')}
+            </p>
+            <Button
+              onClick={() => router.push('/join-developer')}
+              className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-4 text-lg font-medium rounded-lg transform hover:scale-105 transition-all duration-300"
+              
+            >
+              {t('landing.developer_cta.button')}
+            </Button>
           </div>
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-            <p>&copy; 2024 CoreMatrix AI. All rights reserved.</p>
+
+          <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {Object.entries(t('landing.developer_cta.benefits')).map(([key, benefit]) => (
+              <div key={key} className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+                <h3 className="text-xl font-semibold text-emerald-400 mb-3">
+                  {benefit.title}
+                </h3>
+                <p className="text-emerald-100">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
-      </footer>
+      </section>
     </div>
   );
 };

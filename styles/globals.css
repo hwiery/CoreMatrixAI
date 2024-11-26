@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --font-pretendard: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
+}
+
+html {
+  font-family: var(--font-pretendard);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+body {
+  font-feature-settings: "ss01", "ss02", "ss03", "ss04";
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+/* 한글 특화 설정 */
+.korean {
+  letter-spacing: -0.01em;
+}
+
+.english {
+  letter-spacing: -0.02em;
+}
