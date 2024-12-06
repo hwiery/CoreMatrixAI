@@ -88,7 +88,7 @@ const LandingPage = () => {
                 {key === 'cost' && <FaCoins className="w-12 h-12 text-blue-500 mb-4" />}
                 {key === 'productivity' && <FaChartLine className="w-12 h-12 text-blue-500 mb-4" />}
                 {key === 'internship' && <BiBrain className="w-12 h-12 text-blue-500 mb-4" />}
-                {key === 'team' && <FaUsers className="w-12 h-12 text-emerald-500 mb-4" />}
+                {key === 'team' && <FaUsers className="w-12 h-12 text-blue-500 mb-4" />}
                 <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
                 <p className="text-gray-300">{item.description}</p>
               </div>

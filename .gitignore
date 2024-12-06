@@ -1,1 +1,10 @@
-node_modules
+# .gitignore 파일에 추가
+.next/
+node_modules/
+.env*.local
+.env.local
+.env.development.local
+.env.production.local
+
+.env*
+!.env.example

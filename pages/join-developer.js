@@ -21,6 +21,8 @@ const JoinDeveloper = () => {
       level: ''
     }],
     education: {
+      title: '',
+      subtitle: '',
       school: '',
       status: '',
       degree: '',
@@ -276,25 +278,28 @@ const JoinDeveloper = () => {
                 <label className="block text-sm font-bold mb-2 text-white">
                   {t('join-developer.personal_info.sns.title')}
                 </label>
-                {userInfo.snsAccounts.map((account, index) => (
-                  <div key={index} className="flex mb-2">
-                    <Input
-                      value={account}
-                      onChange={(e) => handleSnsChange(index, e.target.value)}
-                      placeholder={t('join-developer.personal_info.sns.placeholder')}
-                      className="bg-gray-700 border-gray-600 text-white flex-1 mr-2"
-                    />
-                    {index > 0 && (
-                      <Button
-                        type="button"
-                        onClick={() => removeSnsAccount(index)}
-                        className="bg-red-600 hover:bg-red-700"
-                      >
-                        <FaTimes />
-                      </Button>
-                    )}
-                  </div>
-                ))}
+                <div className="space-y-4">
+                  {userInfo.snsAccounts.map((account, index) => (
+                    <div key={index} className="flex items-center space-x-4">
+                      <input
+                        type="text"
+                        value={account}
+                        onChange={(e) => handleSnsChange(index, e.target.value)}
+                        placeholder={t('join-developer.personal_info.sns.placeholder')}
+                        className="flex-1 w-full min-w-[200px] p-2 border rounded-md bg-gray-800 border-gray-600 text-white"
+                      />
+                      {index > 0 && (
+                        <Button
+                          type="button"
+                          onClick={() => removeSnsAccount(index)}
+                          className="top-2 right-2 p-2 rounded-lg bg-gray-800 border-transparent hover:bg-gray-800 border-red-500"
+                        >
+                          <FaTimes className="w-3 h-3 text-red-500" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                </div>
                 {userInfo.snsAccounts.length < 5 && (
                   <Button
                     type="button"
@@ -314,7 +319,7 @@ const JoinDeveloper = () => {
                 <p className="text-sm text-gray-500 mb-4">{t('join-developer.personal_info.language.subtitle')}</p>
                 
                 {userInfo.languageProficiencies.map((lang, index) => (
-                  <div key={index} className="flex mb-2 space-x-2">
+                  <div key={index} className="flex mb-2 space-x-4">
                     <select
                       value={lang.language}
                       onChange={(e) => handleLanguageChange(index, 'language', e.target.value)}
@@ -338,9 +343,9 @@ const JoinDeveloper = () => {
                     <Button
                       type="button"
                       onClick={() => removeLanguage(index)}
-                      className="bg-red-600 hover:bg-red-700"
+                      className="top-2 right-2 p-2 rounded-lg bg-gray-800 border-transparent hover:bg-gray-800 border-red-500"
                     >
-                      <FaTimes />
+                      <FaTimes className="w-3 h-3 text-red-500" />
                     </Button>
                   </div>
                 ))}
@@ -455,7 +460,7 @@ const JoinDeveloper = () => {
                       onClick={() => removeExperience(index)}
                       className="absolute top-2 right-2 p-1 rounded-lg border border-transparent hover:border-red-500"
                     >
-                      <FaTimes className="w-4 h-4 text-red-500" />
+                      <FaTimes className="w-3 h-3 text-red-500" />
                     </button>
                   )}
                   <div className="mb-4">

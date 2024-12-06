@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
             <Link href="/join-developer">
               <Button 
                 variant="primary" 
-                className="bg-emerald-500 text-white text-xs sm:text-sm px-2 py-1 hover:bg-emerald-400 whitespace-nowrap"
+                className="bg-emerald-500 text-white text-xs sm:text-sm px-1.5 py-1 hover:bg-emerald-400 whitespace-nowrap"
               >
                 {t('landing.developer_cta.button')}
               </Button>
@@ -48,7 +48,7 @@ const Layout = ({ children }) => {
             <Link href="/contact">
               <Button 
                 variant="primary" 
-                className="bg-blue-600 text-white text-xs sm:text-sm px-2 py-1 hover:bg-blue-700 whitespace-nowrap"
+                className="bg-blue-600 text-white text-xs sm:text-sm px-1.5 py-1 hover:bg-blue-700 whitespace-nowrap"
               >
                 {t('landing.final_cta.button')}
               </Button>

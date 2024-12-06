@@ -17,7 +17,8 @@
         "sns": {
           "title": "SNS 계정",
           "placeholder": "SNS 계정 주소를 입력해주세요 (예: https://linkedin.com/in/username)",
-          "max_accounts": "최대 5개의 SNS 계정을 추가할 수 있습니다."
+          "max_accounts": "최대 5개의 SNS 계정을 추가할 수 있습니다.",
+          "add_button": "SNS 계정 추가"
         },
     
         "language": {
@@ -34,8 +35,8 @@
           },
           "add_button": "언어 추가",
          "max_languages": "최대 5개의 언어를 추가할 수 있습니다."
+        }
       },
-  
       "education": {
         "title": "2. 학력",
         "subtitle": "당신의 학업 배경을 입력해 주세요. 학력 정보는 기업이 요구하는 전문성을 판단하는 중요한 요소입니다. 정확히 작성하면 더 높은 매칭 성공률을 기대할 수 있습니다.",
@@ -108,4 +109,3 @@
         "registration_error": "등록 중 오류가 발생했습니다"
       }
     }
-  }
