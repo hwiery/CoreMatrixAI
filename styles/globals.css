@@ -28,3 +28,90 @@ body {
 .english {
   letter-spacing: -0.02em;
 }
+
+.react-datepicker {
+  background-color: #1f2937 !important;
+  border-color: #4b5563 !important;
+  font-family: var(--font-pretendard) !important;
+}
+
+.react-datepicker__header {
+  background-color: #374151 !important;
+  border-bottom-color: #4b5563 !important;
+  font-family: var(--font-pretendard) !important;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name,
+.react-datepicker__day {
+  color: #fff !important;
+  font-family: var(--font-pretendard) !important;
+}
+
+/* 토요일 스타일링 - 요일 이름과 날짜 모두 적용 */
+.react-datepicker__day-name:nth-child(7),
+.react-datepicker__day:nth-child(7n + 7) {
+  color: #60a5fa !important; /* 파란색 */
+}
+
+/* 일요일 스타일링 - 요일 이름과 날짜 모두 적용 */
+.react-datepicker__day-name:nth-child(1),
+.react-datepicker__day:nth-child(7n + 1) {
+  color: #ef4444 !important; /* 빨간색 */
+}
+
+/* 선택된 날짜는 글자색 흰색 유지 */
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  color: #fff !important;
+  background-color: #3b82f6 !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: #4b5563 !important;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #fff !important;
+}
+
+.react-datepicker__day--outside-month {
+  color: #6b7280 !important;
+}
+
+/* 폰트 적용 */
+.react-datepicker * {
+  font-family: var(--font-pretendard) !important;
+}
+
+.react-datepicker__input-container input {
+  font-family: var(--font-pretendard) !important;
+}
+
+/* 주말이면서 이전/다음 달의 날짜인 경우 */
+.react-datepicker__day--outside-month:nth-child(7n + 7) {
+  color: #3b82f6 !important; /* 연한 파란색 */
+  opacity: 0.5;
+}
+
+.react-datepicker__day--outside-month:nth-child(7n + 1) {
+  color: #ef4444 !important; /* 연한 빨간색 */
+  opacity: 0.5;
+}
+
+/* DatePicker 컨테이너 스타일 */
+.react-datepicker-wrapper {
+  width: 100% !important;
+  display: block !important;
+}
+
+.react-datepicker__input-container {
+  width: 100% !important;
+  display: block !important;
+}
+
+.react-datepicker__input-container input {
+  width: 100% !important;
+  display: block !important;
+  padding-right: 2.5rem !important;
+}

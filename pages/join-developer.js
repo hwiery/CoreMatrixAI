@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import { getNationalities, getLanguages, getSkills, getCurrentLanguage, setLanguage } from '../src/data/data';
 import { FaTimes } from 'react-icons/fa'; // x 아이콘을 위한 react-icons 패키지
 import { useLanguage } from '../contexts/LanguageContext';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const JoinDeveloper = () => {
   const { language, t } = useLanguage();
@@ -48,7 +50,13 @@ const JoinDeveloper = () => {
       endTime: '',
       timezone: ''
     },
-    startDate: ''
+    startDate: '',
+    educations: [{
+      school: '',
+      major: '',
+      degree: '',
+      graduationYear: ''
+    }]
   });
 
   const [selectedSkills, setSelectedSkills] = useState([]);
@@ -62,7 +70,7 @@ const JoinDeveloper = () => {
     setNationalities(getNationalities());
     setLanguages(getLanguages());
     setSkills(getSkills());
-  }, []); // 언어가 변경될 때마다 실행
+  }, []); // 언어 변경될 때마다 실행
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -225,6 +233,35 @@ const JoinDeveloper = () => {
     );
   };
 
+  const addEducation = () => {
+    if (userInfo.educations.length >= 3) return; // 최대 3개로 제한
+    setUserInfo(prev => ({
+      ...prev,
+      educations: [...prev.educations, {
+        school: '',
+        major: '',
+        degree: '',
+        graduationYear: ''
+      }]
+    }));
+  };
+
+  const removeEducation = (index) => {
+    setUserInfo(prev => ({
+      ...prev,
+      educations: prev.educations.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleEducationChange = (index, field, value) => {
+    setUserInfo(prev => ({
+      ...prev,
+      educations: prev.educations.map((edu, i) => 
+        i === index ? { ...edu, [field]: value } : edu
+      )
+    }));
+  };
+
   return (
     <div className="container mx-auto p-4">
       <Card>
@@ -362,89 +399,117 @@ const JoinDeveloper = () => {
             </div>
 
             {/* 학력 섹션 */}
-            <div className="border p-4 mb-4 rounded bg-gray-800">
-              <h2 className="text-lg font-bold mb-2 text-white">{t('join-developer.education.title')}</h2>
-              <p className="text-sm text-gray-500 mb-4">{t('join-developer.education.subtitle')}</p>
-              <div className="mb-4">
-                <label className="block text-sm font-bold mb-2 text-white">
-                  {t('join-developer.education.school')} <span className="text-red-500">*</span>
-                </label>
-                <Input 
-                  name="university"
-                  value={userInfo.university}
-                  onChange={handleInputChange}
-                  className="bg-gray-700 border-gray-600 text-white"
-                  required
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-bold mb-2 text-white">
-                  {t('join-developer.education.status')} <span className="text-red-500">*</span>
-                </label>
-                <select 
-                  name="status"
-                  value={userInfo.status}
-                  onChange={handleInputChange}
-                  className="bg-gray-700 border-gray-600 text-white w-full h-12 rounded"
-                  required
-                >
-                  <option value="">{t('join-developer.education.select_status')}</option>
-                  {Object.entries(t('join-developer.education.status_options', { returnObjects: true })).map(([value, label]) => (
-                    <option key={value} value={value}>{label}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-bold mb-2 text-white">
-                  {t('join-developer.education.degree')}
-                </label>
-                <select 
-                  name="schoolLevel"
-                  value={userInfo.schoolLevel}
-                  onChange={handleInputChange}
-                  className="bg-gray-700 border-gray-600 text-white w-full h-12 rounded"
-                >
-                  <option value="">{t('join-developer.education.select_degree')}</option>
-                  {Object.entries(t('join-developer.education.degree_options', { returnObjects: true })).map(([value, label]) => (
-                    <option key={value} value={value}>{label}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-bold mb-2 text-white">
-                  {t('join-developer.education.major')}
-                </label>
-                <Input 
-                  name="major"
-                  value={userInfo.major}
-                  onChange={handleInputChange}
-                  placeholder={t('join-developer.education.major_placeholder')}
-                  className="bg-gray-700 border-gray-600 text-white"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-bold mb-2 text-white">
-                  {t('join-developer.education.graduation_year')}
-                </label>
-                <Input 
-                  name="year"
-                  value={userInfo.year}
-                  onChange={handleInputChange}
-                  placeholder={t('join-developer.education.graduation_year_placeholder')}
-                  className="bg-gray-700 border-gray-600 text-white"
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-bold mb-2 text-white">
-                  {t('join-developer.education.gpa')}
-                </label>
-                <Input 
-                  name="gpa"
-                  value={userInfo.gpa}
-                  onChange={handleInputChange}
-                  placeholder={t('join-developer.education.gpa_placeholder')}
-                  className="bg-gray-700 border-gray-600 text-white"
-                />
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-white mb-4">{t('join-developer.education.title')}</h2>
+              
+              <div className="border border-white rounded-lg p-6">
+                {userInfo.educations.map((education, index) => (
+                  <div key={index} className="mb-6 bg-gray-800 p-6 rounded-lg relative">
+                    {userInfo.educations.length > 1 && (
+                      <Button
+                        type="button"
+                        onClick={() => removeEducation(index)}
+                        className="absolute top-2 right-2 p-2 rounded-lg bg-gray-800 border-transparent hover:bg-gray-800 border-red-500"
+                      >
+                        <FaTimes className="w-3 h-3 text-red-500" />
+                      </Button>
+                    )}
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-bold mb-2 text-white">
+                          {t('join-developer.education.school')} <span className="text-red-500">*</span>
+                        </label>
+                        <Input
+                          type="text"
+                          name="school"
+                          value={education.school}
+                          onChange={(e) => handleEducationChange(index, 'school', e.target.value)}
+                          placeholder={t('join-developer.education.school_placeholder')}
+                          className="bg-gray-700 border-gray-600 text-white w-full"
+                          required
+                        />
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-bold mb-2 text-white">
+                          {t('join-developer.education.major')} <span className="text-red-500">*</span>
+                        </label>
+                        <Input
+                          type="text"
+                          name="major"
+                          value={education.major}
+                          onChange={(e) => handleEducationChange(index, 'major', e.target.value)}
+                          placeholder={t('join-developer.education.major_placeholder')}
+                          className="bg-gray-700 border-gray-600 text-white w-full"
+                          required
+                        />
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-bold mb-2 text-white">
+                          {t('join-developer.education.degree')} <span className="text-red-500">*</span>
+                        </label>
+                        <select
+                          name="degree"
+                          value={education.degree}
+                          onChange={(e) => handleEducationChange(index, 'degree', e.target.value)}
+                          className="bg-gray-700 border-gray-600 text-white w-full h-10 rounded"
+                          required
+                        >
+                          <option value="">{t('join-developer.education.select_degree')}</option>
+                          <option value="high_school">{t('join-developer.education.degree_options.high_school')}</option>
+                          <option value="associate">{t('join-developer.education.degree_options.associate')}</option>
+                          <option value="bachelor">{t('join-developer.education.degree_options.bachelor')}</option>
+                          <option value="master">{t('join-developer.education.degree_options.master')}</option>
+                          <option value="doctorate">{t('join-developer.education.degree_options.doctorate')}</option>
+                        </select>
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-bold mb-2 text-white">
+                          {t('join-developer.education.graduation_year')} <span className="text-red-500">*</span>
+                        </label>
+                        <Input
+                          type="number"
+                          name="graduationYear"
+                          value={education.graduationYear}
+                          onChange={(e) => handleEducationChange(index, 'graduationYear', e.target.value)}
+                          placeholder={t('join-developer.education.graduation_year_placeholder')}
+                          className="bg-gray-700 border-gray-600 text-white w-full"
+                          min="1950"
+                          max={new Date().getFullYear() + 5}
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {userInfo.educations.length < 3 && (
+                  <div className="flex justify-center mt-6">
+                    <button
+                      type="button"
+                      onClick={addEducation}
+                      className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-primary-foreground hover:bg-emerald-600 h-10 px-4 py-2"
+                    >
+                      <svg 
+                        className="w-5 h-5 mr-2" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2} 
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6" 
+                        />
+                      </svg>
+                      {t('join-developer.education.add')}
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -517,12 +582,25 @@ const JoinDeveloper = () => {
                   </div>
                 </div>
               ))}
-              <div className="mt-4">
+              <div className="flex justify-center mt-6">
                 <Button 
                   type="button"
                   onClick={addExperience}
-                  className="bg-blue-600 hover:bg-blue-700 text-white w-full"
+                  className="inline-flex items-left justify-left rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-emerald-500 text-primary-foreground hover:bg-emerald-400 h-10 px-4 py-2"
                 >
+                  <svg 
+                    className="w-5 h-5 mr-2" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6" 
+                    />
+                  </svg>
                   {t('join-developer.experience.add_button')}
                 </Button>
               </div>
@@ -584,14 +662,43 @@ const JoinDeveloper = () => {
                 <label className="block text-sm font-bold mb-2 text-white">
                   {t('join-developer.availability.start_date')} <span className="text-red-500">*</span>
                 </label>
-                <Input 
-                  name="startDate"
-                  type="date"
-                  value={userInfo.startDate}
-                  onChange={handleInputChange}
-                  className="bg-gray-700 border-gray-600 text-white"
-                  required
-                />
+                <div className="relative w-full">
+                  <div className="relative">
+                    <DatePicker
+                      selected={userInfo.startDate ? new Date(userInfo.startDate) : null}
+                      onChange={(date) => {
+                        handleInputChange({
+                          target: {
+                            name: 'startDate',
+                            value: date.toISOString().split('T')[0]
+                          }
+                        });
+                      }}
+                      dateFormat="yyyy-MM-dd"
+                      placeholderText={t('join-developer.availability.start_date_placeholder')}
+                      className="bg-gray-700 border border-gray-600 text-white rounded w-full h-12 pl-4 pr-10 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      required
+                      popperPlacement="bottom"
+                      wrapperClassName="w-full"
+                      onKeyDown={(e) => e.preventDefault()}
+                    />
+                    <div className="absolute top-0 right-0 h-full flex items-center pr-3 pointer-events-none">
+                      <svg 
+                        className="w-5 h-5 text-gray-400" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2} 
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" 
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-bold mb-2 text-white">{t('join-developer.availability.weekday_time')}</label>
@@ -600,7 +707,7 @@ const JoinDeveloper = () => {
                     name="weekdayTimezone"
                     value={userInfo.weekdayAvailability.timezone}
                     onChange={(e) => handleAvailabilityChange('weekdayAvailability', 'timezone', e.target.value)}
-                    className="bg-gray-700 border-gray-600 text-white w-1/4 rounded h-12"
+                    className="bg-gray-700 border-gray-600 text-white w-[38%] rounded h-12"
                   >
                     <option value="">{t('join-developer.availability.select_timezone')}</option>
                     {Array.from({ length: 25 }, (_, i) => {
@@ -614,52 +721,84 @@ const JoinDeveloper = () => {
                     })}
                   </select>
                   <div className="flex items-center space-x-2">
-                    <div className="flex items-center">
-                      <Input 
+                    <div className="flex items-center space-x-1">
+                      <select
                         name="weekdayStartHours"
-                        type="text"
-                        placeholder="hh"
-                        value={userInfo.weekdayAvailability.startTime}
-                        onChange={(e) => handleTimeInput('weekdayAvailability', 'startHours', e.target.value)}
-                        className="bg-gray-700 border-gray-600 text-white w-16 text-center h-12 rounded"
-                        maxLength="2"
-                        pattern="\d*"
-                      />
+                        value={userInfo.weekdayAvailability.startHours || ''}
+                        onChange={(e) => handleInputChange({
+                          target: {
+                            name: 'weekdayAvailability.startHours',
+                            value: e.target.value
+                          }
+                        })}
+                        className="bg-gray-700 border-gray-600 text-white w-16 h-12 rounded px-2 text-center appearance-none cursor-pointer"
+                      >
+                        <option value="">HH</option>
+                        {Array.from({ length: 24 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, '0')}>
+                            {i.toString().padStart(2, '0')}
+                          </option>
+                        ))}
+                      </select>
                       <span className="text-white">:</span>
-                      <Input 
+                      <select
                         name="weekdayStartMinutes"
-                        type="text"
-                        placeholder="mm"
-                        value={userInfo.weekdayAvailability.startMinutes}
-                        onChange={(e) => handleTimeInput('weekdayAvailability', 'startMinutes', e.target.value)}
-                        className="bg-gray-700 border-gray-600 text-white w-16 text-center h-12 rounded"
-                        maxLength="2"
-                        pattern="\d*"
-                      />
+                        value={userInfo.weekdayAvailability.startMinutes || ''}
+                        onChange={(e) => handleInputChange({
+                          target: {
+                            name: 'weekdayAvailability.startMinutes',
+                            value: e.target.value
+                          }
+                        })}
+                        className="bg-gray-700 border-gray-600 text-white w-16 h-12 rounded px-2 text-center appearance-none cursor-pointer"
+                      >
+                        <option value="">MM</option>
+                        {Array.from({ length: 60 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, '0')}>
+                            {i.toString().padStart(2, '0')}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <span className="text-white mx-2">~</span>
-                    <div className="flex items-center">
-                      <Input 
+                    <div className="flex items-center space-x-1">
+                      <select
                         name="weekdayEndHours"
-                        type="text"
-                        placeholder="hh"
-                        value={userInfo.weekdayAvailability.endTime}
-                        onChange={(e) => handleTimeInput('weekdayAvailability', 'endHours', e.target.value)}
-                        className="bg-gray-700 border-gray-600 text-white w-16 text-center h-12 rounded"
-                        maxLength="2"
-                        pattern="\d*"
-                      />
+                        value={userInfo.weekdayAvailability.endHours || ''}
+                        onChange={(e) => handleInputChange({
+                          target: {
+                            name: 'weekdayAvailability.endHours',
+                            value: e.target.value
+                          }
+                        })}
+                        className="bg-gray-700 border-gray-600 text-white w-16 h-12 rounded px-2 text-center appearance-none cursor-pointer"
+                      >
+                        <option value="">HH</option>
+                        {Array.from({ length: 24 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, '0')}>
+                            {i.toString().padStart(2, '0')}
+                          </option>
+                        ))}
+                      </select>
                       <span className="text-white">:</span>
-                      <Input 
+                      <select
                         name="weekdayEndMinutes"
-                        type="text"
-                        placeholder="mm"
-                        value={userInfo.weekdayAvailability.endMinutes}
-                        onChange={(e) => handleTimeInput('weekdayAvailability', 'endMinutes', e.target.value)}
-                        className="bg-gray-700 border-gray-600 text-white w-16 text-center h-12 rounded"
-                        maxLength="2"
-                        pattern="\d*"
-                      />
+                        value={userInfo.weekdayAvailability.endMinutes || ''}
+                        onChange={(e) => handleInputChange({
+                          target: {
+                            name: 'weekdayAvailability.endMinutes',
+                            value: e.target.value
+                          }
+                        })}
+                        className="bg-gray-700 border-gray-600 text-white w-16 h-12 rounded px-2 text-center appearance-none cursor-pointer"
+                      >
+                        <option value="">MM</option>
+                        {Array.from({ length: 60 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, '0')}>
+                            {i.toString().padStart(2, '0')}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -671,7 +810,7 @@ const JoinDeveloper = () => {
                     name="weekendTimezone"
                     value={userInfo.weekendAvailability.timezone}
                     onChange={(e) => handleAvailabilityChange('weekendAvailability', 'timezone', e.target.value)}
-                    className="bg-gray-700 border-gray-600 text-white w-1/4 rounded h-12"
+                    className="bg-gray-700 border-gray-600 text-white w-[38%] rounded h-12"
                   >
                     <option value="">{t('join-developer.availability.select_timezone')}</option>
                     {Array.from({ length: 25 }, (_, i) => {
@@ -685,52 +824,84 @@ const JoinDeveloper = () => {
                     })}
                   </select>
                   <div className="flex items-center space-x-2">
-                    <div className="flex items-center">
-                      <Input 
+                    <div className="flex items-center space-x-1">
+                      <select
                         name="weekendStartHours"
-                        type="text"
-                        placeholder="hh"
                         value={userInfo.weekendAvailability.startTime}
-                        onChange={(e) => handleTimeInput('weekendAvailability', 'startHours', e.target.value)}
-                        className="bg-gray-700 border-gray-600 text-white w-16 text-center h-12 rounded"
-                        maxLength="2"
-                        pattern="\d*"
-                      />
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 23 && /^\d{0,2}$/.test(value))) {
+                            handleTimeInput('weekendAvailability', 'startHours', value);
+                          }
+                        }}
+                        className="bg-gray-700 border-gray-600 text-white w-16 h-12 rounded px-2 text-center appearance-none cursor-pointer"
+                      >
+                        <option value="">HH</option>
+                        {Array.from({ length: 24 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, '0')}>
+                            {i.toString().padStart(2, '0')}
+                          </option>
+                        ))}
+                      </select>
                       <span className="text-white">:</span>
-                      <Input 
+                      <select
                         name="weekendStartMinutes"
-                        type="text"
-                        placeholder="mm"
                         value={userInfo.weekendAvailability.startMinutes}
-                        onChange={(e) => handleTimeInput('weekendAvailability', 'startMinutes', e.target.value)}
-                        className="bg-gray-700 border-gray-600 text-white w-16 text-center h-12 rounded"
-                        maxLength="2"
-                        pattern="\d*"
-                      />
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 59 && /^\d{0,2}$/.test(value))) {
+                            handleTimeInput('weekendAvailability', 'startMinutes', value);
+                          }
+                        }}
+                        className="bg-gray-700 border-gray-600 text-white w-16 h-12 rounded px-2 text-center appearance-none cursor-pointer"
+                      >
+                        <option value="">MM</option>
+                        {Array.from({ length: 60 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, '0')}>
+                            {i.toString().padStart(2, '0')}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <span className="text-white mx-2">~</span>
-                    <div className="flex items-center">
-                      <Input 
+                    <div className="flex items-center space-x-1">
+                      <select
                         name="weekendEndHours"
-                        type="text"
-                        placeholder="hh"
                         value={userInfo.weekendAvailability.endTime}
-                        onChange={(e) => handleTimeInput('weekendAvailability', 'endHours', e.target.value)}
-                        className="bg-gray-700 border-gray-600 text-white w-16 text-center h-12 rounded"
-                        maxLength="2"
-                        pattern="\d*"
-                      />
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 23 && /^\d{0,2}$/.test(value))) {
+                            handleTimeInput('weekendAvailability', 'endHours', value);
+                          }
+                        }}
+                        className="bg-gray-700 border-gray-600 text-white w-16 h-12 rounded px-2 text-center appearance-none cursor-pointer"
+                      >
+                        <option value="">HH</option>
+                        {Array.from({ length: 24 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, '0')}>
+                            {i.toString().padStart(2, '0')}
+                          </option>
+                        ))}
+                      </select>
                       <span className="text-white">:</span>
-                      <Input 
+                      <select
                         name="weekendEndMinutes"
-                        type="text"
-                        placeholder="mm"
                         value={userInfo.weekendAvailability.endMinutes}
-                        onChange={(e) => handleTimeInput('weekendAvailability', 'endMinutes', e.target.value)}
-                        className="bg-gray-700 border-gray-600 text-white w-16 text-center h-12 rounded"
-                        maxLength="2"
-                        pattern="\d*"
-                      />
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 59 && /^\d{0,2}$/.test(value))) {
+                            handleTimeInput('weekendAvailability', 'endMinutes', value);
+                          }
+                        }}
+                        className="bg-gray-700 border-gray-600 text-white w-16 h-12 rounded px-2 text-center appearance-none cursor-pointer"
+                      >
+                        <option value="">MM</option>
+                        {Array.from({ length: 60 }, (_, i) => (
+                          <option key={i} value={i.toString().padStart(2, '0')}>
+                            {i.toString().padStart(2, '0')}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                 </div>

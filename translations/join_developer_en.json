@@ -62,7 +62,8 @@
         "graduation_year": "Graduation Year",
         "graduation_year_placeholder": "Enter graduation year",
         "gpa": "GPA",
-        "gpa_placeholder": "Enter your GPA"
+        "gpa_placeholder": "Enter your GPA",
+        "add": "Add Education"
       },
   
       "experience": {
@@ -93,9 +94,17 @@
         "title": "5. Work Availability",
         "subtitle": "Enter information about when you can start working. Companies you may work with are in different countries with different working hours. Companies use this as reference for schedule coordination. This section is crucial for coordinating with companies. Provide clear information to increase matching success rate.",
         "start_date": "Available Start Date",
+        "start_date_required": "Available start date is a required field",
+        "start_date_placeholder": "Select available start date",
         "weekday_time": "Available Hours (Weekdays)",
         "weekend_time": "Available Hours (Weekends)",
-        "select_timezone": "Select Timezone"
+        "select_timezone": "Select Timezone",
+        "timezone_placeholder": "Select timezone",
+        "time_placeholder": {
+          "hours": "hh",
+          "minutes": "mm"
+        },
+        "time_format": "Enter time in 24-hour format (e.g., 09:00 ~ 18:00)"
       },
   
       "buttons": {

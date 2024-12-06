@@ -63,7 +63,8 @@
         "graduation_year": "졸업 연도",
         "graduation_year_placeholder": "졸업 연도를 입력해주세요",
         "gpa": "학점",    
-        "gpa_placeholder": "학점을 입력해주세요"
+        "gpa_placeholder": "학점을 입력해주세요",
+        "add": "학력 추가하기"
       },
   
       "experience": {
@@ -78,7 +79,7 @@
         "title_placeholder": "주제 또는 제목을 입력해주세요",
         "description": "내용",
         "description_placeholder": "경험에 대한 내용을 입력해주세요 (최대 1,000자)",
-        "add_button": "경험 추가",
+        "add_button": "경험 추가하기",
         "max_experiences": "최대 5개의 경험 항목만 추가할 수 있습니다.",
         "min_experiences": "최소 1개의 경험은 필요합니다."
       },
@@ -94,9 +95,17 @@
         "title": "5. 근무 시작 정보",
         "subtitle": "근무 시작 가능 시점과 관련한 정보를 입력하세요. 근무를 하게 될 기업은 다양한 국가가 될 수 있기 때문에 업무시간이 나라별로 다릅니다. 기업이 일정 조율을 위한 참고 자료로 사용합니다. 이 섹션은 기업과의 일정 조율에 있어 매우 중요합니다. 명확한 정보를 제공하여 매칭 성공률을 높이세요.",
         "start_date": "근무 시작 가능 일자",
+        "start_date_required": "근무 시작 가능 일자는 필수 입력 항목입니다",
+        "start_date_placeholder": "근무 시작 가능한 날짜를 선택해주세요",
         "weekday_time": "업무 가능 시간 (주중)",
         "weekend_time": "업무 가능 시간 (주말)",
-        "select_timezone": "시간대 선택"
+        "select_timezone": "시간대 선택",
+        "timezone_placeholder": "시간대를 선택해주세요",
+        "time_placeholder": {
+          "hours": "시",
+          "minutes": "분"
+        },
+        "time_format": "24시간 형식으로 입력해주세요 (예: 09:00 ~ 18:00)"
       },
   
       "buttons": {
