@@ -3,7 +3,9 @@ import mongoose from 'mongoose';
 const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
-  throw new Error('MONGODB_URI가 환경변수에 설정되지 않았습니다.');
+  throw new Error(
+    'MongoDB URI가 설정되지 않았습니다. .env 파일에 MONGODB_URI를 설정해주세요.'
+  );
 }
 
 console.log('MongoDB URI exists:', !!MONGODB_URI);
@@ -27,8 +29,11 @@ async function dbConnect() {
       const opts = {
         bufferCommands: false,
         maxPoolSize: 10,
-        serverSelectionTimeoutMS: 5000,
+        serverSelectionTimeoutMS: 10000,
         socketTimeoutMS: 45000,
+        family: 4,
+        retryWrites: true,
+        retryReads: true
       };
 
       console.log('Creating new connection...');

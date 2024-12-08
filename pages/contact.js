@@ -81,40 +81,32 @@ const ContactPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          timestamp: new Date(),
-          status: 'new',
-        }),
+        body: JSON.stringify(formData),
       });
 
-      const result = await response.json();
+      const data = await response.json();
 
-      if (response.ok) {
-        toast.success(t('contact.contact.contact_submit_success'));
-        
-        // 폼 초기화
-        setFormData({
-          fullName: '',
-          email: '',
-          mobile: '',
-          company: '',
-          position: '',
-          message: '',
-          referral: ''
-        });
-
-        // 3초 후 랜딩 페이지로 이동
-        setTimeout(() => {
-          router.push('/landing');
-        }, 3000);
-      } else {
-        toast.error(result.message || t('contact.contact.contact_submit_error'));
+      if (!response.ok) {
+        throw new Error(data.message || '서버 오류가 발생했습니다.');
       }
 
+      toast.success('문의가 성공적으로 제출되었습니다.');
+      
+      // 폼 초기화
+      setFormData({
+        fullName: '',
+        email: '',
+        mobile: '',
+        company: '',
+        position: '',
+        message: '',
+        referral: ''
+      });
+
+      setTimeout(() => router.push('/landing'), 3000);
     } catch (error) {
-      console.error('문의 제출 중 오류:', error);
-      toast.error(t('contact.contact.contact_submit_error'));
+      console.error('문의 제출 오류:', error);
+      toast.error(error.message || '문의 제출 중 오류가 발생했습니다.');
     } finally {
       setIsSubmitting(false);
     }
