@@ -3,11 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-<<<<<<< Updated upstream
-        "dev": "cross-env NODE_ENV=development next dev -p 3000",
-=======
-        "dev": "next dev -p 300",
->>>>>>> Stashed changes
+        "dev": "next dev -p 3000",
         "build": "next build",
         "start": "next start -p 3001",
         "lint": "next lint"
