@@ -42,12 +42,12 @@ const AboutPage = () => {
             <p>{t('about.about.stats.korean_companies_trust_details')}</p>
           </div>
           <div className="bg-gray-800 p-6 rounded-lg">
-            <h3 className="text-2xl font-bold text-blue-500">{t('about.stats.successful_projects')}</h3>
+            <h3 className="text-2xl font-bold text-blue-500">{t('about.about.stats.successful_projects')}</h3>
             <p>{t('about.about.stats.successful_projects_details')}</p>
           </div>
           <div className="bg-gray-800 p-6 rounded-lg">
             <h3 className="text-2xl font-bold text-blue-500">{t('about.about.stats.developers_network')}</h3>
-            <p>{t('about.stats.developers_network_details')}</p>
+            <p>{t('about.about.stats.developers_network_details')}</p>
           </div>
         </div>
       </div>
@@ -118,7 +118,7 @@ const AboutPage = () => {
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <h3 className="text-4xl font-bold text-blue-500">{t('about.about.impact_stats.industries_served')}</h3>
-              <p>{t('about.impact_stats.industries_served_details')}</p>
+              <p>{t('about.about.impact_stats.industries_served_details')}</p>
             </div>
             <div>
               <h3 className="text-4xl font-bold text-blue-500">{t('about.about.impact_stats.matching_accuracy')}</h3>

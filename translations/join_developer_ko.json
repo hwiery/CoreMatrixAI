@@ -14,10 +14,12 @@
         "email_placeholder": "이메일을 입력해주세요",
         "phone": "전화번호",  
         "phone_placeholder": "전화번호를 입력해주세요",
+        "nationality": "국적",
+        "select_nationality": "국적을 선택해주세요",        
         "sns": {
           "title": "SNS 계정",
           "placeholder": "SNS 계정 주소를 입력해주세요 (예: https://linkedin.com/in/username)",
-          "max_accounts": "최대 5개의 SNS 계정을 추가할 수 있습니다.",
+          "max_addresses": "최대 5개의 SNS 계정을 추가할 수 있습니다.",
           "add_button": "SNS 계정 추가"
         },
     
@@ -69,6 +71,7 @@
   
       "experience": {
         "title": "3. 경험",
+        "subtitle": "당신의 경험을 입력해 주세요. 경험은 기업이 당신의 역량과 프로젝트 적합성을 평가하는 데 중요한 요소입니다. 정확히 작성하면 더 높은 매칭 성공률을 기대할 수 있습니다.",
         "company": "회사명",
         "company_placeholder": "회사명을 입력해주세요",
         "project": "프로젝트명",
@@ -115,6 +118,51 @@
   
       "messages": {
         "registration_success": "성공적으로 등록되었습니다!",
-        "registration_error": "등록 중 오류가 발생했습니다"
+        "registration_error": "등록 중 오류가 발생했습니다",
+        "registration_success_title": "등록이 완료되었습니다!",
+        "registration_success_description": "개발자 네트워크 등록이 성공적으로 완료되었습니다.",
+        "go_to_landing": "메인으로 이동"
+      },
+  
+      "validation": {
+        "name": {
+          "required": "이름을 입력해주세요.",
+          "minLength": "이름은 최소 2자 이상이어야 합니다."
+        },
+        "email": {
+          "required": "이메일을 입력해주세요.",
+          "invalid": "올바른 이메일 형식이 아닙니다."
+        },
+        "phone": {
+          "required": "전화번호를 입력해주세요.",
+          "invalid": "올바른 전화번호 형식이 아닙니다."
+        },
+        "nationality": {
+          "required": "국적을 선택해주세요."
+        },
+        "university": {
+          "required": "대학교명을 입력해주세요."
+        },
+        "startDate": {
+          "required": "시작 가능일을 선택해주세요."
+        },
+        "education": {
+          "required": "최소 하나의 학력 정보를 입력해주세요.",
+          "school": {
+            "required": "학교명을 입력해주세요."
+          },
+          "major": {
+            "required": "전공을 입력해주세요."
+          },
+          "degree": {
+            "required": "학위를 선택해주세요."
+          },
+          "graduationYear": {
+            "required": "졸업연도를 입력해주세요."
+          },
+          "status": {
+            "required": "학력 상태를 선택해주세요."
+          }
+        }
       }
     }

@@ -57,12 +57,6 @@ const ContactPage = () => {
       ...prev,
       [name]: value
     }));
-
-    // 실시간 유효성 검사
-    const error = validateField(name, value);
-    if (error) {
-      toast.error(error);
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -152,10 +146,6 @@ const ContactPage = () => {
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleInputChange}
-                  onBlur={(e) => {
-                    const error = validateField('fullName', e.target.value);
-                    if (error) toast.error(error);
-                  }}
                   placeholder={t('contact.contact.full_name_placeholder')}
                   className="bg-gray-800 border-gray-700 text-white"
                   required
@@ -171,10 +161,6 @@ const ContactPage = () => {
                   type="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  onBlur={(e) => {
-                    const error = validateField('email', e.target.value);
-                    if (error) toast.error(error);
-                  }}
                   placeholder={t('contact.contact.email_placeholder')}
                   className="bg-gray-800 border-gray-700 text-white"
                   required
@@ -189,10 +175,6 @@ const ContactPage = () => {
                   name="mobile"
                   value={formData.mobile}
                   onChange={handleInputChange}
-                  onBlur={(e) => {
-                    const error = validateField('mobile', e.target.value);
-                    if (error) toast.error(error);
-                  }}
                   placeholder={t('contact.contact.mobile_placeholder')}
                   className="bg-gray-800 border-gray-700 text-white"
                   required
@@ -207,10 +189,6 @@ const ContactPage = () => {
                   name="company"
                   value={formData.company}
                   onChange={handleInputChange}
-                  onBlur={(e) => {
-                    const error = validateField('company', e.target.value);
-                    if (error) toast.error(error);
-                  }}
                   placeholder={t('contact.contact.company_placeholder')}
                   className="bg-gray-800 border-gray-700 text-white"
                   required
@@ -225,10 +203,6 @@ const ContactPage = () => {
                   name="position"
                   value={formData.position}
                   onChange={handleInputChange}
-                  onBlur={(e) => {
-                    const error = validateField('position', e.target.value);
-                    if (error) toast.error(error);
-                  }}
                   placeholder={t('contact.contact.position_placeholder')}
                   className="bg-gray-800 border-gray-700 text-white"
                   required
@@ -243,10 +217,6 @@ const ContactPage = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
-                  onBlur={(e) => {
-                    const error = validateField('message', e.target.value);
-                    if (error) toast.error(error);
-                  }}
                   placeholder={t('contact.contact.message_placeholder')}
                   className="bg-gray-800 border-gray-700 text-white"
                   required
@@ -261,10 +231,6 @@ const ContactPage = () => {
                   name="referral"
                   value={formData.referral}
                   onChange={handleInputChange}
-                  onBlur={(e) => {
-                    const error = validateField('referral', e.target.value);
-                    if (error) toast.error(error);
-                  }}
                   placeholder={t('contact.contact.referral_placeholder')}
                   className="bg-gray-800 border-gray-700 text-white"
                 />

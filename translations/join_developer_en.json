@@ -12,11 +12,13 @@
         "email_placeholder": "Enter your email",
         "phone": "Phone Number",
         "phone_placeholder": "Enter your phone number",
+        "nationality": "Nationality",
+        "select_nationality": "Select Nationality", 
         "sns": {
-          "title": "SNS Accounts",
-          "placeholder": "Enter SNS account URL (e.g., https://linkedin.com/in/username)",
-          "max_accounts": "You can add up to 5 SNS accounts.",
-          "add_button": "Add SNS Account"
+          "title": "SNS Addresses",
+          "placeholder": "Enter SNS address (e.g., https://linkedin.com/in/username)",
+          "max_addresses": "You can add up to 5 SNS addresses.",
+          "add_button": "Add SNS Address"
         },
   
         "language": {
@@ -68,6 +70,7 @@
   
       "experience": {
         "title": "3. Experience",
+        "subtitle": "Please enter your work experience. Work experience is crucial for companies to assess your capabilities and project suitability. Accurate information increases your matching success rate.",
         "company": "Company Name",
         "company_placeholder": "Enter company name",
         "project": "Project Name",
@@ -114,6 +117,48 @@
   
       "messages": {
         "registration_success": "Successfully registered!",
-        "registration_error": "An error occurred during registration"
+        "registration_error": "An error occurred during registration",
+        "registration_success_title": "Registration Complete!",
+        "registration_success_description": "Your developer network registration has been successfully completed.",
+        "go_to_landing": "Go to Main"
+      },
+  
+      "validation": {
+        "name": {
+          "required": "Please enter your name.",
+          "minLength": "Name must be at least 2 characters long."
+        },
+        "email": {
+          "required": "Please enter your email.",
+          "invalid": "Please enter a valid email address."
+        },
+        "phone": {
+          "required": "Please enter your phone number.",
+          "invalid": "Please enter a valid phone number."
+        },
+        "nationality": {
+          "required": "Please select your nationality."
+        },
+        "startDate": {
+          "required": "Please select your available start date."
+        },
+        "education": {
+          "required": "Please enter at least one education record.",
+          "school": {
+            "required": "Please enter school name."
+          },
+          "major": {
+            "required": "Please enter your major."
+          },
+          "degree": {
+            "required": "Please select your degree."
+          },
+          "graduationYear": {
+            "required": "Please enter graduation year."
+          },
+          "status": {
+            "required": "Please select your education status."
+          }
+        }
       }
     }
