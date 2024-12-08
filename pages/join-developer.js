@@ -320,7 +320,7 @@ const JoinDeveloper = () => {
       setIsModalOpen(true);
       
       setTimeout(() => {
-        router.push('/landing');
+        router.push('/');
       }, 10000);
     } catch (error) {
       console.error('Submit error:', error);
@@ -900,7 +900,7 @@ const JoinDeveloper = () => {
                 {t('join-developer.skills.subtitle')}
               </p>
               
-              {/* 기술 스택 선택 영역 */}
+              {/* 기술 ���택 선택 영역 */}
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {Object.entries(skills).map(([category, categorySkills]) => (
                   <div key={category} className="mb-4">
@@ -1138,7 +1138,7 @@ const JoinDeveloper = () => {
             <div className="flex justify-center mt-4">
               <Button 
                 type="button" // 버튼 클릭 시 페이지 이동
-                onClick={() => router.push('/landing')}
+                onClick={() => router.push('/')}
                 className="bg-gray-800 hover:bg-gray-700 text-white w-1/3 mx-2"
               >
                 {t('join-developer.buttons.go_back')}
@@ -1174,7 +1174,7 @@ const JoinDeveloper = () => {
           </p>
           <div className="flex justify-center space-x-4">
             <button
-              onClick={() => router.push('/landing')}
+              onClick={() => router.push('/')}
               className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
             >
               {t('join-developer.messages.go_to_landing')}
