@@ -55,8 +55,8 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-white">Connect</h3>
             <ul className="space-y-2">
               <li>
-                <a href="mailto:contact@corematrix.ai" className="hover:text-white transition-colors">
-                  contact@corematrix.ai
+                <a href="mailto:corematrixai@gmail.com" className="hover:text-white transition-colors">
+                corematrixai@gmail.com
                 </a>
               </li>
             </ul>
