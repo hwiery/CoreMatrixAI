@@ -722,11 +722,13 @@ const JoinDeveloper = () => {
                         className="bg-gray-800 border border-gray-700 text-gray-300 w-full h-10 rounded pl-3 font-normal"
                         required
                       >
-                        <option value="">{t('join-developer.education.select_graduation_year')}</option>
-                        {Array.from({ length: 80 }, (_, i) => {
+                        <option value="" disabled>
+                          {t('join-developer.education.select_graduation_year')}
+                        </option>
+                        {Array.from({ length: 75 }, (_, i) => {
                           const year = new Date().getFullYear() + 5 - i;
                           return (
-                            <option key={year} value={year.toString()}>
+                            <option key={year} value={year}>
                               {year}
                             </option>
                           );
