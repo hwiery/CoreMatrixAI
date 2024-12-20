@@ -394,15 +394,14 @@ const JoinDeveloper = () => {
   };
 
   const handleEducationChange = (index, field, value) => {
-    const updatedEducations = [...userInfo.educations];
-    updatedEducations[index] = {
-      ...updatedEducations[index],
-      [field]: value
-    };
-    setUserInfo({
-      ...userInfo,
-      educations: updatedEducations
-    });
+    setUserInfo(prev => ({
+      ...prev,
+      educations: prev.educations.map((edu, i) => 
+        i === index 
+          ? { ...edu, [field]: value }
+          : edu
+      )
+    }));
   };
 
   // 교육 상태 옵션 추가
@@ -716,22 +715,23 @@ const JoinDeveloper = () => {
                       <label className="block text-sm font-bold mb-2 text-white">
                         {t('join-developer.education.graduation_year')} <span className="text-red-500">*</span>
                       </label>
-                      <Input
-                        type="text"
+                      <select
                         name="graduationYear"
                         value={education.graduationYear}
-                        onChange={(e) => {
-                          // 숫자만 입력 가능하도록 처리
-                          const value = e.target.value.replace(/[^0-9]/g, '');
-                          if (value === '' || (parseInt(value) >= 1950 && parseInt(value) <= new Date().getFullYear() + 5)) {
-                            handleEducationChange(index, 'graduationYear', value);
-                          }
-                        }}
-                        placeholder={t('join-developer.education.graduation_year_placeholder')}
-                        className="bg-gray-800 border-gray-700 text-gray-300 w-full"
-                        maxLength="4"
+                        onChange={(e) => handleEducationChange(index, 'graduationYear', e.target.value)}
+                        className="bg-gray-800 border border-gray-700 text-gray-300 w-full h-10 rounded pl-3 font-normal"
                         required
-                      />
+                      >
+                        <option value="">{t('join-developer.education.select_graduation_year')}</option>
+                        {Array.from({ length: 80 }, (_, i) => {
+                          const year = new Date().getFullYear() + 5 - i;
+                          return (
+                            <option key={year} value={year.toString()}>
+                              {year}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </div>
                     
                     <div>
@@ -900,7 +900,7 @@ const JoinDeveloper = () => {
                 {t('join-developer.skills.subtitle')}
               </p>
               
-              {/* 기술 ���택 선택 영역 */}
+              {/* 기술 스택 선택 영역 */}
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {Object.entries(skills).map(([category, categorySkills]) => (
                   <div key={category} className="mb-4">

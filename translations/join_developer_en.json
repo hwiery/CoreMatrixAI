@@ -62,7 +62,7 @@
         "major": "Major",
         "major_placeholder": "Enter your major",
         "graduation_year": "Graduation Year",
-        "graduation_year_placeholder": "Enter graduation year",
+        "select_graduation_year": "Graduation year",
         "gpa": "GPA",
         "gpa_placeholder": "Enter your GPA",
         "add": "Add Education"

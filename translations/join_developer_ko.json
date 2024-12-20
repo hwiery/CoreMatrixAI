@@ -63,7 +63,7 @@
         "major": "전공",
         "major_placeholder": "전공을 입력해주세요",
         "graduation_year": "졸업 연도",
-        "graduation_year_placeholder": "졸업 연도를 입력해주세요",
+        "select_graduation_year": "졸업 연도 선택",
         "gpa": "학점",    
         "gpa_placeholder": "학점을 입력해주세요",
         "add": "학력 추가하기"
