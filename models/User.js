@@ -38,7 +38,20 @@ const userSchema = new mongoose.Schema({
   // SNS 계정
   snsAddresses: {
     type: [String],
-    default: []
+    default: [],
+    validate: [
+      {
+        validator: function(array) {
+          // 배열인지 확인
+          if (!Array.isArray(array)) return false;
+          // 최대 5개까지만 허용
+          if (array.length > 5) return false;
+          // 각 항목이 비어있지 않은 문자열인지 확인
+          return array.every(item => typeof item === 'string' && item.trim().length > 0);
+        },
+        message: 'SNS 주소는 최대 5개까지만 등록할 수 있으며, 각 주소는 비어있지 않아야 합니다.'
+      }
+    ]
   },
   
   // 학력 정보
@@ -65,6 +78,15 @@ const userSchema = new mongoose.Schema({
     updatedAt: 'updatedAt' 
   },
   collection: 'users'
+});
+
+// SNS 주소 저장 전 처리
+userSchema.pre('save', function(next) {
+  // SNS 주소 배열에서 빈 문자열 제거
+  if (Array.isArray(this.snsAddresses)) {
+    this.snsAddresses = this.snsAddresses.filter(address => address && address.trim() !== '');
+  }
+  next();
 });
 
 // 이메일 중복 체크를 위한 인덱스

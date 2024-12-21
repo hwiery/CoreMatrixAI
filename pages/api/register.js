@@ -63,13 +63,23 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: '이미 등록된 이메일입니다.' });
     }
 
-    // 데이터 제제
+    // 데이터 제제 전에 SNS 주소 배열 처리를 위한 로깅
+    console.log('Incoming SNS addresses:', userData.snsAddresses);
+
+    // SNS 주소 배열 정제
+    const cleanSnsAddresses = Array.isArray(userData.snsAddresses) 
+      ? userData.snsAddresses.filter(address => address && address.trim() !== '')
+      : [];
+
+    console.log('Cleaned SNS addresses:', cleanSnsAddresses);
+
+    // 데이터 정제
     const sanitizedData = {
       name: userData.name,
       email: userData.email,
       phone: userData.phone,
       nationality: userData.nationality,
-      snsAccounts: userData.snsAccounts || [],
+      snsAddresses: cleanSnsAddresses, // 정제된 SNS 주소 배열 사용
       
       // 교육 정보를 배열로 처리
       educations: userData.educations || [],
@@ -85,10 +95,10 @@ export default async function handler(req, res) {
       status: 'active'
     };
 
-    console.log('Attempting to save user with data:', JSON.stringify(sanitizedData, null, 2));
+    console.log('Sanitized data SNS addresses:', sanitizedData.snsAddresses);
 
     // 데이터 저장 시도 전 로그
-    console.log('Preparing to save user data...');
+    console.log('Preparing to save user data with SNS addresses:', JSON.stringify(sanitizedData.snsAddresses, null, 2));
     
     const user = new User(sanitizedData);
     console.log('User model created');
